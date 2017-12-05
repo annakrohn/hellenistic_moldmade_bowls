@@ -1,0 +1,31 @@
+<h2> Index </h2>
+<% Bowl.motifs_by_fabrics.each do |f_name, vals_hash| %>
+  <% if f_name == "f_count" %>
+    <h3><%="Number of fabrics: #{vals_hash}" %></h3>
+  <% else %>
+    <h3><%=f_name%></h3>
+    <table>
+      <tr>
+        <th>Motif Name</th>
+        <th>Total Number</th>
+        <th>Rim Motif</th>
+        <th>Wall Motif</th>
+        <th>Calyx Motif</th>
+        <th>Medallion Motif</th>
+      </tr>
+      <% sorted = vals_hash["totals"].sort_by{|k,v| v[1]}.reverse.to_h %>
+      <% sorted.each do |key, values| %>  
+
+        <tr>
+          <td><%= values[0] %></td>
+          <td><%= values[1] %></td>
+          <td><%= vals_hash["rim_motif"][key][1] if vals_hash["rim_motif"][key] %></td>
+          <td><%= vals_hash["wall_motif"][key][1] if vals_hash["wall_motif"][key] %></td>
+          <td><%= vals_hash["calyx_motif"][key][1] if vals_hash["calyx_motif"][key] %></td>
+          <td><%= vals_hash["medallion_motif"][key][1] if vals_hash["medallion_motif"][key] %></td>
+        </tr>
+      <% end %>
+    </table>
+    <br/>
+  <% end %>
+<% end %>
